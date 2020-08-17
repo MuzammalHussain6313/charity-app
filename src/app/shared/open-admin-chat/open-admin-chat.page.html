@@ -1,0 +1,40 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Message</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row *ngFor="let message of messages">
+      <ion-col size="9" *ngIf="currentUser !== message?.sender" class="message other-message">
+        <b>{{message?.sender}}</b><br>
+        <span>{{message?.message}}</span>
+        <div class="time" text-right><br>
+          {{message.createdAt | date:'short'}}</div>
+      </ion-col>
+
+      <ion-col offset="3" size="9" *ngIf="currentUser === message.sender" class="message my-message">
+        <b>{{message?.sender}}</b><br>
+        <span>{{message?.message}}</span>
+        <div class="time" text-right><br>
+          {{message.createdAt | date:'short'}}</div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
+<ion-footer>
+  <ion-toolbar color="light">
+    <ion-row align-items-end no-padding>
+      <ion-col size="10">
+        <textarea placeholder="Enter your message" autosize [maxRows]="3" [(ngModel)]="newMsg" class="message-input"></textarea>
+      </ion-col>
+      <ion-col size="2">
+        <ion-img (click)="sendMessage()" style="width: 30px; height: 30px;" src="/assets/send.svg" alt="image"></ion-img>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+</ion-footer>
