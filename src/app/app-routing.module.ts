@@ -191,6 +191,19 @@ const routes: Routes = [
         loadChildren: './admin/update/update.module#UpdatePageModule'
       }
     ]
+  },
+  {
+    path: 'setting',
+    loadChildren: () => import('./setting/setting.module').then(m => m.SettingPageModule)
+  },
+  // {
+  //   path: '',
+  //   redirectTo: 'login',
+  //   pathMatch: 'full'
+  // },
+  {
+    path: 'home',
+    loadChildren: () => import('./home/home.module').then(m => m.HomePageModule)
   }
   // {
   //   path: 'update-charity-house',

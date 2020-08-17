@@ -1,0 +1,34 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Home</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-card class="welcome-card">
+      <img src="/assets/food.png" alt="" />
+      <ion-card-header>
+        <ion-card-subtitle>Get Started</ion-card-subtitle>
+        <ion-card-title>Welcome to Food Distribution App</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <p>This application show the list of charity house in your city. where you can donate food OR money to your selected charity house. The system will send notification of your donation to charity house. Charity house will collect food from your's. Your money donations will transfared to bank account of the selected charity house. And that is only possible when you have a bank account and card number.</p>
+      </ion-card-content>
+    </ion-card>
+    <ion-list lines="none">
+      <ion-list-header>
+        <ion-label>Resources</ion-label>
+      </ion-list-header>
+      <ion-item href="https://food-distribution-app.herokuapp.com/funds/list">
+        <ion-icon slot="start" color="medium" name="book"></ion-icon>
+        <ion-label>API GET method</ion-label>
+      </ion-item>
+      <ion-item href="https://food-distribution-app.herokuapp.com/charityHouses/list">
+        <ion-icon slot="start" color="medium" name="build"></ion-icon>
+        <ion-label>GET by List</ion-label>
+      </ion-item>
+    </ion-list>
+</ion-content>
