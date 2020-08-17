@@ -1,0 +1,7 @@
+{
+  "name": "charity-app",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
