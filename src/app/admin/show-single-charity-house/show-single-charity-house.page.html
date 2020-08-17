@@ -1,0 +1,26 @@
+<ion-header>
+  <ion-toolbar color="secondary">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{user?.name}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card class="welcome-card">
+    <!--    <img src="/assets/quran-majeed.jpg" alt="" />-->
+    <ion-card-header>
+      <ion-card-title>{{user?.name}}</ion-card-title>
+      <ion-card-subtitle>{{user?.email}}</ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+      <p> {{user?.name}} is {{user?.type}} in {{user?.address.streetAddress}} {{user?.address.city}}.</p>
+      <p>{{user?.contact}} is Contact number and email is {{user?.email}}.</p>
+      <p>there are {{user?.no_of_members}} members in house.</p>
+      <p>{{user?.name}} have an account in {{user?.bank_name}} Bank where you can donate your funds
+        in {{user?.account_no}} account Number.</p>
+      <ion-icon size="large" slot="end" name="ios-call" (click)="contactDealer(user?.email)"></ion-icon>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

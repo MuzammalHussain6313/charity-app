@@ -1,0 +1,42 @@
+<ion-header>
+  <ion-toolbar color="secondary">
+    <ion-buttons slot="start">
+      <ion-back-button (click)="loadDonnerList()" *ngIf="admin"></ion-back-button>
+      <ion-menu-button *ngIf="!admin"></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Reports</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content *ngIf="!isEmpty">
+  <ion-list class="ion-no-padding" no-lines *ngFor="let item of result">
+    <ion-card class="ion-no-padding">
+      <ion-card-header>
+        <ion-card-title>{{item?.type}}</ion-card-title>
+        <ion-card-subtitle>{{item?.message}}</ion-card-subtitle>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-item no-lines>
+          <ion-label color="green">Details</ion-label>
+          <ion-img *ngIf="!item?.show" (click)="expandCLick(item)" style="width: 20px; height: 20px;" src="/assets/down-arrow.svg"
+                   alt="down" slot="end"></ion-img>
+          <ion-img *ngIf="item?.show" (click)="expandCLick(item)" style="width: 20px; height: 20px;" src="/assets/up-arrow.svg"
+                   alt="up" slot="end"></ion-img>
+        </ion-item>
+        <ion-card-content class="ion-no-padding" *ngIf="item?.show">
+          <p>Sender: {{ item?.charityHouse?.email }}</p>
+          <p>receiver: {{ item?.donner?.user?.email }}</p>
+        </ion-card-content>
+      </ion-card-content>
+    </ion-card>
+  </ion-list>
+</ion-content>
+
+<ion-content *ngIf="isEmpty">
+  <div class="fullheight xc">
+    <div>
+      <h3 class="item-color">No Report</h3>
+    </div>
+  </div>
+</ion-content>
+

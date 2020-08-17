@@ -1,0 +1,36 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      Donner List
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card class="welcome-card" *ngFor="let item of result">
+    <ion-card-header>
+      <ion-card-title>{{item?.user.first_name}}</ion-card-title>
+      <ion-card-subtitle>{{item?.contact}}</ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-row>
+        <ion-col size="10">
+          <ion-icon *ngFor="let item of itration" size="large" color="primary" name="star"></ion-icon>
+          <ion-icon size="large" color="primary" name="star-half"></ion-icon>
+          <ion-label>4.5</ion-label><br>
+        </ion-col>
+        <ion-col align-items-start size="2">
+          <ion-icon class="msg-btn" (click)="openChat(item?.user.first_name, item?.user.last_name)" size="large" ios="ios-chatboxes" md="md-chatboxes"></ion-icon>
+        </ion-col>
+      </ion-row>
+      <p> {{item?.user.first_name}} {{item?.user.last_name}} locate in {{item?.address}}. {{item?.contact}} is
+        Contact number and email is {{item?.user.email}}. You can
+        <ion-label (click)="sendReport(item)" slot="start" color="success">Report</ion-label> that user.</p>
+      <ion-button mode="ios" size="small" (click)="feedBack(item)" slot="start" color="success">Send Feedback</ion-button>
+      <ion-button mode="ios" size="small" (click)="review($event, item)" slot="end" color="primary">Add Review</ion-button>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

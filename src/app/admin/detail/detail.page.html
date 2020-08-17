@@ -1,0 +1,26 @@
+<ion-header>
+  <ion-toolbar color="secondary">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+      <ion-title>Details</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card class="welcome-card">
+    <ion-card-header>
+        <ion-card-title>{{user?.user?.first_name}}</ion-card-title>
+        <ion-card-subtitle>{{user?.user?.last_name}}</ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+      <p> Mr. {{user?.user?.first_name}} {{user?.user?.last_name}} is a {{user?.user?.role}} User of this system. His
+      Contact number is {{user?.contact}} and address is {{user?.address}}</p>
+      <p>Username of the user is {{user?.user?.user_name}} and password is {{user?.user?.password}} and email is {{user?.user?.email}}.</p>
+        <ion-item lines="none">
+            <ion-button style="height: 40px" (click)="loadReports(user.id)" slot="start">View Reports</ion-button>
+            <ion-img (click)="contactDonner(user?.user?.email)" style="width: 50px; height: 50px;" src="/assets/phone-icon.svg" alt="update" slot="end"></ion-img>
+        </ion-item>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

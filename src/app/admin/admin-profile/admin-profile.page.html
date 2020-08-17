@@ -1,0 +1,62 @@
+<ion-header xmlns="http://www.w3.org/1999/html">
+  <ion-toolbar color="secondary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Profile</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-row align-items-end no-padding>
+    <ion-col size="3"></ion-col>
+    <ion-col style="padding-top: 30px" size="6">
+      <div class="profile">
+        <img style="width: 145px; height: 145px" [routerLink]="['profile-picture']" class="profile-picture" src="assets/20181028_231840.png"/>
+      </div>
+    </ion-col>
+    <ion-col size="3"></ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col size="3">
+      <ion-card class="border">
+        <ion-card-content class="ion-no-padding">
+          <ion-icon style="float: right;" size="large" name="Person"></ion-icon>
+        </ion-card-content>
+      </ion-card>
+    </ion-col>
+    <ion-col size="9">
+      <ion-item class="ion-no-padding"><ion-card class="border ion-no-padding">
+        <ion-card-header class="ion-no-padding">
+          <ion-card-subtitle>Name</ion-card-subtitle>
+          <ion-card-title>{{user?.first_name}} {{user?.last_name}}</ion-card-title>
+        </ion-card-header>
+      </ion-card></ion-item>
+    </ion-col>
+    <ion-col size="0"></ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col size="3">
+      <ion-card class="border">
+        <ion-card-content class="ion-no-padding">
+          <ion-icon style="float: right;" size="large" name="ios-call"></ion-icon>
+        </ion-card-content>
+      </ion-card>
+    </ion-col>
+    <ion-col size="9">
+      <ion-item class="ion-no-padding">
+        <ion-card class="border ion-no-padding">
+          <ion-card-header class="ion-no-padding">
+            <ion-card-title>Email</ion-card-title>
+            <ion-card-subtitle>{{user?.email}}</ion-card-subtitle>
+          </ion-card-header>
+        </ion-card>
+      </ion-item>
+    </ion-col>
+    <ion-col size="0"></ion-col>
+  </ion-row>
+</ion-content>
+
+<ion-img class="bottom-right" (click)="updateProfile()" style="width: 45px; height: 45px;"
+         src="/assets/edit-admin.jpg" alt="update" slot="end"></ion-img>
+

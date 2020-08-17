@@ -1,0 +1,47 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Update</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid class="ion-padding-top">
+    <div [formGroup]="signupForm">
+      <ion-input [hidden]="true" value="{{user?.id}}" formControlName="id"></ion-input>
+      <ion-item>
+        <ion-input placeholder="First Name" value="{{user?.user?.first_name}}" formControlName="first_name"></ion-input>
+      </ion-item>
+      <ion-item>
+      <ion-input placeholder="Last Name" value="{{user?.user?.last_name}}" formControlName="last_name" ></ion-input>
+    </ion-item>
+      <ion-item>
+        <ion-input placeholder="Email" value="{{user?.user?.email}}" formControlName="email" ></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input placeholder="User Name" value="{{user?.user?.user_name}}" formControlName="user_name" ></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input placeholder="Password" value="{{user?.user?.password}}" formControlName="password" ></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input placeholder="Role" value="{{user?.user?.role}}" formControlName="role" ></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input placeholder="Address" value="{{user?.address}}" formControlName="address" ></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input placeholder="Contact" value="{{user?.contact}}" formControlName="contact" ></ion-input>
+      </ion-item>
+
+      <ion-grid class="ion-padding-top">
+        <ion-row class="ion-justify-content-center">
+
+          <ion-button (click)="updateData()" shape="square" [disabled]="!signupForm.valid">Save</ion-button>
+        </ion-row>
+      </ion-grid>
+    </div>
+  </ion-grid>
+</ion-content>

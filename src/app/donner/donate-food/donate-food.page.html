@@ -1,0 +1,50 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Donate Food</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form [formGroup]="donateFoodForm">
+    <ion-grid>
+      <ion-row color="justify-content-center">
+        <ion-col class="ion-align-self-center" size-md="6" size-lg="5" size-xs="12">
+          <div class="ion-text-center">
+            <h3>Provide Food Information</h3>
+          </div>
+          <div class="ion-padding">
+            <ion-item>
+              <ion-input placeholder="Enter Name" formControlName="name"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-datetime placeholder="Expiry Date" pickerFormat="YYYY MM DD" formControlName="expiry_date"></ion-datetime>
+            </ion-item>
+            <ion-item>
+              <ion-label position="floating">Select Type</ion-label>
+              <ion-select formControlName="type" placeholder="--Select--" okText="Okay" cancelText="Dismiss">
+                <ion-select-option value="fast Food">Fast Food</ion-select-option>
+                <ion-select-option value="rise">Rise</ion-select-option>
+                <ion-select-option value="simple food">Simple Food</ion-select-option>
+              </ion-select>
+            </ion-item>
+            <ion-item>
+              <ion-input placeholder="Quantity" formControlName="quantity"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label position="floating">Unit</ion-label>
+              <ion-select formControlName="unit" placeholder="--Select--" okText="Okay" cancelText="Dismiss">
+                <ion-select-option *ngFor="let item of units" value="{{item}}">{{item}}</ion-select-option>
+              </ion-select>
+            </ion-item>
+          </div>
+          <div class="ion-padding">
+            <ion-button size="default" [disabled]="donateFoodForm.invalid" (click)="donateFood()" color="primary" type="submit" expand="block">Donate Food</ion-button>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
+</ion-content>

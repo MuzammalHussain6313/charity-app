@@ -1,0 +1,50 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Sign Up</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form [formGroup]="registerDonnerForm">
+    <ion-grid>
+      <ion-row color="justify-content-center">
+        <ion-col class="ion-align-self-center" size-md="6" size-lg="5" size-xs="12">
+          <div class="ion-text-center">
+            <h3>Enter Donner Details!</h3>
+          </div>
+          <div class="ion-padding">
+            <ion-item>
+              <ion-label position="floating">Address</ion-label>
+              <ion-input (focusout)="onFoucusOut()" (keyup)="removeError()" formControlName="address"></ion-input>
+            </ion-item>
+            <div>
+              <span class="text-danger" *ngIf="registerDonnerFormControl.address.touched && registerDonnerFormControl.address.errors?.required">Address required.</span>
+              <span class="text-danger" *ngIf="submitted && registerDonnerFormControl.address.errors?.required">address required.</span>
+            </div>
+            <div *ngIf="addressVerification">
+              <span class="text-danger">You can't enter only white space.</span>
+            </div>
+            <ion-item>
+              <ion-label position="floating">Contact</ion-label>
+              <ion-input (focus)="onFoucusOutContact()" (keyup)="removeErrorContact()" formControlName="contact"></ion-input>
+            </ion-item>
+            <div>
+              <span class="text-danger" *ngIf="registerDonnerFormControl.contact.touched && registerDonnerFormControl.contact.errors?.required">Contact required.</span>
+              <span class="text-danger" *ngIf="submitted && registerDonnerFormControl.contact.errors?.required">Contact required.</span>
+              <span class="text-danger" *ngIf="registerDonnerForm.get('contact').hasError('pattern')">Enter Only digits for contact.</span>
+            </div>
+            <div *ngIf="contactEmptyCheck">
+              <span class="text-danger">You can't enter only white space.</span>
+            </div>
+          </div>
+          <div class="ion-padding">
+            <ion-button size="large" [disabled]="registerDonnerForm.invalid" (click)="registerUser()" color="primary" type="submit" expand="block">Register</ion-button>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
+</ion-content>

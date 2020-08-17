@@ -1,0 +1,11 @@
+<ion-content>
+  <ion-list>
+    <ion-item *ngFor="let item of result">
+      <ion-icon slot="start" name="person"></ion-icon>
+      <p (click)="showSingleItem(item?.id)">{{item?.user.first_name}} {{item?.user.last_name}}</p>
+      <ion-img (click)="updateItem(item?.id)" style="width: 20px; height: 20px;" src="/assets/pencil-sharp.svg"
+               alt="update" slot="end"></ion-img>
+      <ion-icon (click)="deleteDonner(item?.id)" size="default" name="trash" slot="end"></ion-icon>
+    </ion-item>
+  </ion-list>
+</ion-content>

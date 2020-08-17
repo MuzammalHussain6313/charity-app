@@ -1,0 +1,24 @@
+<ion-header>
+  <ion-toolbar color="secondary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Feed Backs</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card class="welcome-card" *ngFor="let item of result">
+    <ion-card-header>
+      <ion-icon slot="start" name="person"></ion-icon>
+      <ion-card-title>{{item?.donner?.user?.first_name}}</ion-card-title>
+      <ion-card-subtitle>{{item?.email}}</ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-text color="primary">
+        <h4>{{item?.subject}}</h4>
+      </ion-text>
+      <p>{{item?.feedbackMessage}}</p>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

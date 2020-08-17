@@ -1,0 +1,47 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Donate Fund</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form [formGroup]="donateForm">
+    <ion-grid>
+      <ion-row color="justify-content-center">
+        <ion-col class="ion-align-self-center" size-md="6" size-lg="5" size-xs="12">
+          <div class="ion-text-center">
+            <h3>Provide Transaction Information</h3>
+          </div>
+          <div class="ion-padding">
+            <ion-item>
+              <ion-label position="floating">Amount</ion-label>
+              <ion-input formControlName="amount"></ion-input>
+            </ion-item>
+
+            <ion-item>
+              <ion-label position="floating">Currency</ion-label>
+              <ion-select formControlName="currency" placeholder="--Select--" okText="Okay" cancelText="Dismiss">
+                <ion-select-option *ngFor="let item of currencies" value="{{item}}">{{item}}</ion-select-option>
+              </ion-select>
+            </ion-item>
+            <ion-item>
+              <ion-label position="floating">Card No</ion-label>
+              <ion-input formControlName="donner_card"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label position="floating">Expiry Date</ion-label>
+              <ion-datetime pickerFormat="YYYY MM DD" formControlName="card_expiry_date"></ion-datetime>
+            </ion-item>
+          </div>
+          <div class="ion-padding">
+            <ion-button size="large" [disabled]="donateForm.invalid" (click)="donateFund()" color="primary" type="submit" expand="block">Proceed</ion-button>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
+</ion-content>
+

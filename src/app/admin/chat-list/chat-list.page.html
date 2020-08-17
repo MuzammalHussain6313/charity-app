@@ -1,0 +1,24 @@
+<ion-header>
+  <ion-toolbar color="success">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      Help Conversation
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-list>
+        <ion-item (click)="openChat(item?.user_name)" *ngFor="let item of users">
+            <ion-icon slot="start" name="person"></ion-icon>
+            <p>{{item?.first_name}} {{item?.last_name}}</p>
+            <ion-img *ngIf="item?.role == 'charity house'" style="width: 40px; height: 40px;" src="/assets/charity.jpg"
+                     alt="update" slot="end"></ion-img>
+            <ion-img *ngIf="item?.role == 'donner'" style="width: 40px; height: 40px;" src="/assets/restaurant.ico"
+                     alt="update" slot="end"></ion-img>
+        </ion-item>
+    </ion-list>
+</ion-content>
+

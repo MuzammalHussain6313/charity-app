@@ -1,0 +1,11 @@
+<ion-content [fullscreen]="true">
+  <ion-list>
+    <ion-item *ngFor="let item of result">
+      <ion-icon slot="start" name="home"></ion-icon>
+      <p (click)="showSingleItem(item?.id)">{{item?.name}} {{item?.contact}}</p>
+      <ion-img (click)="updateItem(item?.id)" style="width: 20px; height: 20px;" src="/assets/pencil-sharp.svg"
+               alt="update" slot="end"></ion-img>
+      <ion-icon (click)="deleteCharityHouse(item?.id)" size="default" name="trash" slot="end"></ion-icon>
+    </ion-item>
+  </ion-list>
+</ion-content>

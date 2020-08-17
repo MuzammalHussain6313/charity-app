@@ -1,0 +1,104 @@
+<ion-header>
+    <ion-toolbar color="primary">
+        <ion-buttons slot="start">
+            <ion-back-button></ion-back-button>
+        </ion-buttons>
+        <ion-title>Sign Up</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <form [formGroup]="registerForm">
+        <ion-grid>
+            <ion-row color="justify-content-center">
+                <ion-col class="ion-align-self-center" size-md="6" size-lg="5" size-xs="12">
+                    <div class="ion-text-center">
+                        <h3>Create your account!</h3>
+                    </div>
+                    <div class="ion-padding">
+                        <ion-item>
+                            <ion-input name="firstName" formControlName="first_name" type="text" placeholder="First Name"></ion-input>
+                        </ion-item>
+                        <div>
+                            <span class="text-danger" *ngIf="registerFormControl.first_name.touched && registerFormControl.first_name.errors?.required">First name required.</span>
+                            <span class="text-danger" *ngIf="registerFormControl.first_name.touched && registerFormControl.first_name.errors?.pattern">Enter only Alphabets.</span>
+                            <span class="text-danger" *ngIf="registerForm.get('first_name').hasError('minlength')">Enter at least 3 charecters.</span>
+                            <span class="text-danger" *ngIf="registerForm.get('first_name').hasError('maxlength')">Enter 20 charecters maximum.</span>
+                            <span class="text-danger" *ngIf="submitted && registerFormControl.first_name.errors?.required">First name required.</span>
+                        </div>
+                        <ion-item>
+                            <ion-input name="lastName" formControlName="last_name" type="text" placeholder="Last Name"></ion-input>
+                        </ion-item>
+                        <div>
+                            <span class="text-danger" *ngIf="registerFormControl.last_name.touched && registerFormControl.last_name.errors?.required">First name required.</span>
+                            <span class="text-danger" *ngIf="registerFormControl.last_name.touched && registerFormControl.last_name.errors?.pattern">Enter only Alphabets.</span>
+                            <span class="text-danger" *ngIf="registerForm.get('last_name').hasError('minlength')">Enter at least 3 charecters.</span>
+                            <span class="text-danger" *ngIf="registerForm.get('last_name').hasError('maxlength')">Enter 20 charecters maximum.</span>
+                            <span class="text-danger" *ngIf="submitted && registerFormControl.last_name.errors?.required">Last name required.</span>
+                        </div>
+                        <ion-item>
+                            <ion-input (focusout)="onFoucusOut()" (keyup)="removeError()" (change)="checkEmail()" name="email" formControlName="email" type="email" placeholder="your@email.com"></ion-input>
+                            <ion-spinner color="secondary" name="lines" *ngIf="mailloading"></ion-spinner>
+                        </ion-item>
+                        <div *ngIf="emailVerification">
+                            <span class="text-danger">User with that email is already exists.<br> Enter another email</span>
+                        </div>
+                        <div *ngIf="emailEmptyCheck">
+                            <span class="text-danger">You can't enter only white space.</span>
+                        </div>
+                        <div>
+                            <span class="text-danger" *ngIf="submitted && registerFormControl.email.errors?.required">Email is required.</span>
+                            <span class="text-danger" *ngIf="registerForm.get('email').hasError('pattern')">You can enter alphabets numeric value and spacial character and dot.</span>
+                        </div>
+                        <ion-item>
+                            <ion-input (focusout)="onFoucusOutUsername()" (keyup)="removeErrorUsername()" (change)="checkUsername()" name="username" formControlName="user_name" type="text" placeholder="username"></ion-input>
+                        </ion-item>
+                        <div *ngIf="usernameVerification">
+                            <span class="text-danger">User with that username is already exists.<br> Enter another username</span>
+                        </div>
+                        <div *ngIf="usernameEmptyCheck">
+                            <span class="text-danger">You can't enter only white space.</span>
+                        </div>
+                        <div>
+                            <span class="text-danger" *ngIf="submitted && registerFormControl.user_name.errors?.required">username is required.</span>
+                            <span class="text-danger" *ngIf="registerForm.get('user_name').hasError('pattern')">You can enter alphabets numeric value for username.</span>
+                        </div>
+                        <ion-item>
+                            <ion-input placeholder="Password" formControlName="password" [type]="passwordType" clearOnEdit="false"></ion-input>
+                            <ion-icon item-end [name]="passwordIcon" class="passwordIcon" (click)='hideShowPassword()'></ion-icon>
+                        </ion-item>
+                        <div>
+                            <ion-label class="text-danger" *ngIf="submitted && registerFormControl.password.errors?.required">password is required.</ion-label>
+                            <span class="text-danger" *ngIf="registerForm.get('password').hasError('minlength')">Minimum length of password should 5.</span>
+                            <span class="text-danger" *ngIf="registerForm.get('password').hasError('pattern')">Enter alpha numeric value for password.</span>
+                        </div>
+                        <ion-item>
+                            <ion-input (keyup)="removePasswordMatchError()" (focusout)="matchPasswords()" placeholder="Confirm Password" formControlName="confirm_password" [type]="passwordType" clearOnEdit="false"></ion-input>
+                            <ion-icon item-end [name]="passwordIcon" class="passwordIcon" (click)='hideShowPassword()'></ion-icon>
+                        </ion-item>
+                        <div>
+                            <span class="text-danger" *ngIf="submitted && registerFormControl.confirm_password.errors?.required">confirm password is required.</span>
+                            <span class="text-danger" *ngIf="registerFormControl.confirm_password.touched && registerForm.get('confirm_password').hasError('mismatchedPasswords')">Password and confirm password should match.</span>
+                        </div>
+                        <div *ngIf="passwordMatch">
+                            <span class="text-danger">Password and confirm password should match.</span>
+                        </div>
+                        <ion-item>
+                            <ion-label position="floating">User Role</ion-label>
+                            <ion-select value="Donner" formControlName="role" placeholder="--Select--" okText="Okay" cancelText="Dismiss">
+                                <ion-select-option value="donner">Donner</ion-select-option>
+                                <ion-select-option value="charity house">Charity House</ion-select-option>
+                            </ion-select>
+                        </ion-item>
+                        <div>
+                            <span class="text-danger" *ngIf="submitted && registerFormControl.role.errors?.required">Please ! select your user role.</span>
+                        </div>
+                    </div>
+                    <div class="ion-padding">
+                        <ion-button size="large" (click)="loadForm()" color="primary" type="submit" expand="block">Proceed  &nbsp;&nbsp;&nbsp;<ion-spinner name="lines" *ngIf="loading"></ion-spinner></ion-button>
+                    </div>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+    </form>
+</ion-content>

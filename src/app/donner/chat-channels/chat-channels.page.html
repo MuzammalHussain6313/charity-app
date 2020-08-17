@@ -1,0 +1,19 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      Donner Conversation
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list class="welcome-card" *ngFor="let item of channels">
+    <ion-item (click)="openChat(item?.name)">
+      <ion-label>{{changeValue(item?.name)}}</ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>
+

@@ -1,0 +1,39 @@
+<ion-header>
+    <ion-toolbar color="success">
+        <ion-buttons slot="start">
+            <ion-back-button></ion-back-button>
+        </ion-buttons>
+        <ion-title>Update Profile</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-card no-border no-padding>
+        <ion-grid class="ion-padding-top">
+            <div [formGroup]="updateForm">
+                <ion-input [hidden]="true" value="{{user?.id}}" formControlName="id"></ion-input>
+                <ion-item>
+                    <ion-input placeholder="First Name" value="{{user?.first_name}}" formControlName="first_name"></ion-input>
+                </ion-item>
+                <ion-item>
+                    <ion-input placeholder="Last Name" value="{{user?.last_name}}" formControlName="last_name"></ion-input>
+                </ion-item>
+                <ion-item>
+                    <ion-input placeholder="Email" value="{{user?.email}}" formControlName="email"></ion-input>
+                </ion-item>
+                <ion-item>
+                    <ion-input placeholder="User Name" value="{{user?.user_name}}" formControlName="user_name"></ion-input>
+                </ion-item>
+                <ion-item>
+                    <ion-input placeholder="Password" value="{{user?.password}}" formControlName="password"></ion-input>
+                </ion-item>
+
+                <ion-grid style="padding-top: 50px" class="ion-padding-top">
+                    <ion-row class="ion-justify-content-center">
+                        <ion-button (click)="updateData()" shape="square" [disabled]="!updateForm.valid">Save</ion-button>
+                    </ion-row>
+                </ion-grid>
+            </div>
+        </ion-grid>
+    </ion-card>
+</ion-content>

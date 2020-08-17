@@ -1,0 +1,24 @@
+<ion-content>
+    <form [formGroup]="reviewForm">
+    <ion-grid>
+        <ion-row color="justify-content-center">
+            <ion-col class="ion-align-self-center" size-md="6" size-lg="5" size-xs="12">
+                    <div>
+                        <ion-icon size="large" color="{{c1}}" (click)=" clickFirst(1)" name="{{n1}}"></ion-icon>
+                        <ion-icon size="large" color="{{c2}}" (click)=" clickSecond(2)" name="{{n2}}"></ion-icon>
+                        <ion-icon size="large" color="{{c3}}" (click)=" clickThird(3)" name="{{n3}}"></ion-icon>
+                        <ion-icon size="large" color="{{c4}}" (click)=" clickForth(4)" name="{{n4}}"></ion-icon>
+                        <ion-icon size="large" color="{{c5}}" (click)=" clickFifth(5)" name="{{n5}}"></ion-icon>
+                    </div>
+                    <ion-item>
+                        <ion-input placeholder="I Like That Donner" formControlName="title"></ion-input>
+                    </ion-item>
+                    <div class="ion-padding">
+                        <ion-button size="default" (click)="addReview()" color="secondary" type="submit" expand="block">SUBMIT
+                        </ion-button>
+                    </div>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</form>
+</ion-content>

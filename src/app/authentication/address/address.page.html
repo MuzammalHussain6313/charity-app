@@ -1,0 +1,66 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Sign Up</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form [formGroup]="addressForm">
+    <ion-grid>
+      <ion-row color="justify-content-center">
+        <ion-col class="ion-align-self-center" size-md="6" size-lg="5" size-xs="12">
+          <div class="ion-text-center">
+            <h3>Enter Address Details</h3>
+          </div>
+          <div class="ion-padding">
+            <ion-item>
+              <ion-input placeholder="Street address" formControlName="streetAddress"></ion-input>
+            </ion-item>
+            <div>
+              <span class="text-danger" *ngIf="registerAddressFormControl.streetAddress.touched && registerAddressFormControl.streetAddress.errors?.required">street Address required.</span>
+              <span class="text-danger" *ngIf="submitted && registerAddressFormControl.streetAddress.errors?.required">street Address required.</span>
+            </div>
+            <ion-item>
+              <ion-input placeholder="City" formControlName="city"></ion-input>
+            </ion-item>
+            <div>
+              <span class="text-danger" *ngIf="registerAddressFormControl.city.touched && registerAddressFormControl.city.errors?.required">city required.</span>
+              <span class="text-danger" *ngIf="addressForm.get('city').hasError('pattern')">Enter only digits</span>
+              <span class="text-danger" *ngIf="submitted && registerAddressFormControl.city.errors?.required">city required.</span>
+            </div>
+            <ion-item>
+              <ion-input placeholder="zip Code" formControlName="zipCode"></ion-input>
+            </ion-item>
+            <div>
+              <span class="text-danger" *ngIf="registerAddressFormControl.zipCode.touched && registerAddressFormControl.zipCode.errors?.required">zip Code required.</span>
+              <span class="text-danger" *ngIf="addressForm.get('zipCode').hasError('pattern')">Enter only digits</span>
+              <span class="text-danger" *ngIf="submitted && registerAddressFormControl.zipCode.errors?.required">zip Code required.</span>
+            </div>
+            <ion-item>
+              <ion-input placeholder="state" formControlName="state"></ion-input>
+            </ion-item>
+            <div>
+              <span class="text-danger" *ngIf="registerAddressFormControl.state.touched && registerAddressFormControl.state.errors?.required">state required.</span>
+              <span class="text-danger" *ngIf="addressForm.get('state').hasError('pattern')">Enter only Alphabets</span>
+              <span class="text-danger" *ngIf="submitted && registerAddressFormControl.state.errors?.required">state required.</span>
+            </div>
+            <ion-item>
+              <ion-input placeholder="Country" formControlName="country"></ion-input>
+            </ion-item>
+            <div>
+              <span class="text-danger" *ngIf="registerAddressFormControl.country.touched && registerAddressFormControl.country.errors?.required">country required.</span>
+              <span class="text-danger" *ngIf="addressForm.get('country').hasError('pattern')">Enter only Alphabets</span>
+              <span class="text-danger" *ngIf="submitted && registerAddressFormControl.country.errors?.required">country required.</span>
+            </div>
+          </div>
+          <div class="ion-padding">
+            <ion-button size="large"(click)="registerUser()" color="primary" type="submit" expand="block">Register&nbsp;&nbsp;&nbsp;<ion-spinner name="lines" *ngIf="loading"></ion-spinner></ion-button>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
+</ion-content>

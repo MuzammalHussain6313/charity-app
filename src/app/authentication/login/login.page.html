@@ -1,0 +1,46 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Login</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form [formGroup]="loginForm" >
+    <ion-grid>
+      <ion-row color="justify-content-center">
+        <ion-col class="ion-align-self-center" size-md="6" size-lg="5" size-xs="12">
+          <div class="ion-text-center">
+            <h3>Login to your account!</h3>
+          </div>
+          <div class="ion-padding">
+            <ion-item>
+              <ion-input formControlName="email" type="text" placeholder="Email"></ion-input>
+            </ion-item>
+            <span class="error-message" *ngIf="isSubmitted && errorControl.email.errors?.required">email is required.</span>
+            <ion-item>
+              <ion-input placeholder="Password" formControlName="password" [type]="passwordType" clearOnEdit="false"></ion-input>
+              <ion-icon item-end [name]="passwordIcon" class="passwordIcon" (click)='hideShowPassword()'></ion-icon>
+            </ion-item>
+            <span class="error-message" *ngIf="isSubmitted && errorControl.password.errors?.required">Password is required.</span>
+          </div>
+          <div class="ion-padding">
+            <ion-button shape="round" size="large" (click)="login()" color="primary" type="submit" expand="block">Login</ion-button>
+          </div>
+          <div>
+            <ion-label *ngIf="test">Invalid email OR password. Please Enter correct details.</ion-label>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
+  <ion-text (click)="forgotPassword()" color="danger">
+    <h4 style="padding-left: 30px">Forgot Password?</h4>
+  </ion-text>
+  <ion-label>
+  </ion-label>
+  <ion-footer style="padding-top: 40px">
+    <ion-button (click)="registerUser()" size="large" expand="block" color="secondary">
+      <ion-img class="register-icon" src="/assets/person-add-sharp.svg"></ion-img>
+      REGISTER A NEW USER</ion-button>
+  </ion-footer>
+</ion-content>

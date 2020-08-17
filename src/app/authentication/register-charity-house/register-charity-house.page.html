@@ -1,0 +1,86 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Sign Up</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form [formGroup]="registerCharityHouseForm">
+    <ion-grid>
+      <ion-row color="justify-content-center">
+        <ion-col class="ion-align-self-center" size-md="6" size-lg="5" size-xs="12">
+          <div class="ion-text-center">
+            <h3>Enter Charity House Details</h3>
+          </div>
+          <div class="ion-padding">
+            <ion-item>
+              <ion-input placeholder="Charity House's Name" formControlName="name"></ion-input>
+            </ion-item>
+            <div>
+              <span class="text-danger" *ngIf="registerFormControl.name.touched && registerFormControl.name.errors?.required">First name required.</span>
+              <span class="text-danger" *ngIf="registerCharityHouseForm.get('name').hasError('pattern')">Enter only alphabets</span>
+              <span class="text-danger" *ngIf="submitted && registerFormControl.first_name.errors?.required">First name required.</span>
+            </div>
+            <ion-item>
+              <ion-input placeholder="Email" formControlName="email"></ion-input>
+            </ion-item>
+            <div>
+              <span class="text-danger" *ngIf="registerFormControl.email.touched && registerFormControl.email.errors?.required">Email required.</span>
+              <span class="text-danger" *ngIf="registerCharityHouseForm.get('email').hasError('pattern')">You can enter alphabets numeric value and spacial character and dot</span>
+              <span class="text-danger" *ngIf="submitted && registerFormControl.first_name.errors?.required">Email required.</span>
+            </div>
+            <ion-item>
+              <ion-input placeholder="Number of dependents" formControlName="no_of_dependents"></ion-input>
+            </ion-item>
+            <div>
+              <span class="text-danger" *ngIf="registerFormControl.no_of_dependents.touched && registerFormControl.no_of_dependents.errors?.required">Dependents required.</span>
+              <span class="text-danger" *ngIf="registerCharityHouseForm.get('no_of_dependents').hasError('pattern')">Enter only digits</span>
+              <span class="text-danger" *ngIf="submitted && registerFormControl.no_of_dependents.errors?.required">Dependents required.</span>
+            </div>
+            <ion-item>
+              <ion-input placeholder="Contact" formControlName="contact"></ion-input>
+            </ion-item>
+            <div>
+              <span class="text-danger" *ngIf="registerFormControl.contact.touched && registerFormControl.contact.errors?.required">contact required.</span>
+              <span class="text-danger" *ngIf="registerCharityHouseForm.get('contact').hasError('pattern')">Enter only digits</span>
+              <span class="text-danger" *ngIf="submitted && registerFormControl.contact.errors?.required">contact is required.</span>
+            </div>
+            <ion-item>
+              <ion-label position="floating">Type</ion-label>
+              <ion-select value="Donner" formControlName="type" placeholder="--Select--" okText="Okay" cancelText="Dismiss">
+                <ion-select-option value="Old House">Old House</ion-select-option>
+                <ion-select-option value="Orphan House">Orphan House</ion-select-option>
+                <ion-select-option value="Food Supplier">Food Supplier</ion-select-option>
+              </ion-select>
+            </ion-item>
+            <div>
+              <span class="text-danger" *ngIf="submitted && registerFormControl.no_of_dependents.errors?.required">Dependents required.</span>
+            </div>
+            <ion-item>
+              <ion-input placeholder="Bank Name" formControlName="bank_name"></ion-input>
+            </ion-item>
+            <div>
+              <span class="text-danger" *ngIf="registerFormControl.bank_name.touched && registerFormControl.bank_name.errors?.required">bank name required.</span>
+              <span class="text-danger" *ngIf="registerCharityHouseForm.get('bank_name').hasError('pattern')">Enter only Alphabets</span>
+              <span class="text-danger" *ngIf="submitted && registerFormControl.bank_name.errors?.required">bank name required.</span>
+            </div>
+            <ion-item>
+              <ion-input placeholder="Account Number" formControlName="account_no"></ion-input>
+            </ion-item>
+            <div>
+              <span class="text-danger" *ngIf="registerFormControl.account_no.touched && registerFormControl.account_no.errors?.required">account number is required.</span>
+              <span class="text-danger" *ngIf="registerCharityHouseForm.get('account_no').hasError('pattern')">Enter only digits</span>
+              <span class="text-danger" *ngIf="submitted && registerFormControl.account_no.errors?.required">account number is required.</span>
+            </div>
+          </div>
+          <div class="ion-padding">
+            <ion-button size="large" (click)="save()" color="primary" type="submit" expand="block">Proceed</ion-button>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
+</ion-content>
