@@ -2,6 +2,11 @@
 // http://ionicframework.com/docs/theming/
 
 /** Ionic CSS Variables **/
+
+::-webkit-scrollbar, *::-webkit-scrollbar {
+  display: none;
+}
+
 :root {
   /** primary **/
   --ion-color-primary: #3880ff;

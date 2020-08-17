@@ -4,12 +4,8 @@ import {PreloadAllModules, RouterModule, Routes} from '@angular/router';
 const routes: Routes = [
     {
         path: '',
-        redirectTo: 'folder/Inbox',
+        redirectTo: '/login',
         pathMatch: 'full'
-    },
-    {
-        path: 'folder/:id',
-        loadChildren: () => import('./folder/folder.module').then(m => m.FolderPageModule)
     },
     {
         path: 'login',
@@ -198,11 +194,6 @@ const routes: Routes = [
         path: 'setting',
         loadChildren: () => import('./setting/setting.module').then(m => m.SettingPageModule)
     },
-    // {
-    //   path: '',
-    //   redirectTo: 'login',
-    //   pathMatch: 'full'
-    // },
     {
         path: 'home',
         loadChildren: () => import('./home/home.module').then(m => m.HomePageModule)
@@ -231,22 +222,22 @@ const routes: Routes = [
     {
         path: 'open-admin-chat',
         loadChildren: './shared/open-admin-chat/open-admin-chat.module#OpenAdminChatPageModule'
+    },
+    {
+      path: 'update-charity-house',
+      children: [
+        {
+          path: '',
+          loadChildren: () => import('./admin/update-charity-house/update-charity-house.module')
+              .then(m => m.UpdateCharityHousePageModule)
+        },
+        {
+          path: ':id',
+          loadChildren: () => import('./admin/update-charity-house/update-charity-house.module')
+              .then(m => m.UpdateCharityHousePageModule)
+        }
+      ]
     }
-    // {
-    //   path: 'update-charity-house',
-    //   children: [
-    //     {
-    //       path: '',
-    //       loadChildren: () => import('./admin/update-charity-house/update-charity-house.module')
-    //           .then(m => m.UpdateCharityHousePageModule)
-    //     },
-    //     {
-    //       path: ':id',
-    //       loadChildren: () => import('./admin/update-charity-house/update-charity-house.module')
-    //           .then(m => m.UpdateCharityHousePageModule)
-    //     }
-    //   ]
-    // }
 ];
 
 @NgModule({

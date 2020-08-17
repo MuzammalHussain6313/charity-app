@@ -52,8 +52,8 @@ export class LoginPage implements OnInit {
                     if (d.emailStatus && d.loginStatus && d.applicationStatus === 'approved' && d.role != null) {
                         if (d.role === 'donner') {
                             this.appPages = [{ title: 'Home', url: '/home', icon: 'home' },
-                                { title: 'charity Houses', url: '/charityList', icon: 'list' },
-                                { title: 'Open Chat', url: '/chat-channels', icon: 'ios-chatboxes'},
+                                { title: 'charity Houses', url: '/charity-list', icon: 'list' },
+                                { title: 'Open Chat', url: '/chat-channels', icon: 'mail'},
                                 { title: 'Reports', url: `/reports/${d.donner.id}`, icon: 'list' },
                                 { title: 'Settings', url: '/setting', icon: 'settings'},
                                 { title: 'Feedbacks', url: '/feed-backs', icon: 'list' }];
@@ -80,7 +80,7 @@ export class LoginPage implements OnInit {
                         if (d.role === 'admin') {
                             this.appPages = [{ title: 'Home', url: '/home', icon: 'home' },
                                 { title: 'Manage Users', url: '/tabs', icon: 'list', },
-                                { title: 'Message', url: '/chat-list', icon: 'ios-chatboxes'},
+                                { title: 'Message', url: '/chat-list', icon: 'mail'},
                                 { title: 'Profile', url: `/admin-profile/${d.user.id}`, icon: 'person'}];
                             console.log('user', d.role);
                             this.service.setRole(d.role);
