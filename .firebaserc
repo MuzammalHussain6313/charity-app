@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "food-distribution-app-fb350": {
+      "hosting": {
+        "app": [
+          "food-distribution-app-fb350"
+        ]
+      }
+    }
+  }
+}
