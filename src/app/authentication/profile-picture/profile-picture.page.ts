@@ -2,7 +2,7 @@ import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {LoadingController, ToastController} from '@ionic/angular';
 import {catchError, finalize} from 'rxjs/operators';
-import {throwError} from 'rxjs';
+import {Observable, throwError} from 'rxjs';
 import {ListService} from '../../list.service';
 
 @Component({
@@ -15,7 +15,7 @@ export class ProfilePicturePage implements OnInit {
   public myPhoto: any;
   public error: string;
   private loading: any;
-
+  downloadURL: Observable<string>;
   constructor(private readonly http: HttpClient,
               private readonly loadingCtrl: LoadingController,
               private readonly toastCtrl: ToastController,
@@ -93,12 +93,12 @@ export class ProfilePicturePage implements OnInit {
   }
 
   private postData(formData: FormData) {
-    this.http.post<boolean>(`${this.service.homeUrl}/upload`, formData)
-        .pipe(
-            catchError(e => this.handleError(e)),
-            finalize(() => this.loading.dismiss())
-        )
-        .subscribe(ok => this.showToast(ok));
+    this.http.post<boolean>(`${this.service.homeUrl}/upload/uploadPicture`, formData)
+        .pipe(catchError(e => this.handleError(e)), finalize(() => this.loading.dismiss()))
+        .subscribe(ok => {
+          alert(ok);
+          this.showToast(ok);
+        });
   }
 
   private async showToast(ok: boolean | {}) {
@@ -127,5 +127,6 @@ export class ProfilePicturePage implements OnInit {
   }
 
   ngOnInit(): void {
+
   }
 }

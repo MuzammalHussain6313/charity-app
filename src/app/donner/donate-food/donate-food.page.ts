@@ -32,7 +32,6 @@ export class DonateFoodPage implements OnInit {
       console.log('id', this.charityID);
     });
     this.formInitializer();
-    // this.today.setDate(this.today.getDate() + 3);
     this.dateTill = this.today.toISOString().substr(0, 10);
   }
   formInitializer() {
@@ -50,12 +49,9 @@ export class DonateFoodPage implements OnInit {
     this.date = this.today.getFullYear() + '-' + (this.today.getMonth() + 1 ) + '-' + this.today.getDate();
     console.log('current date', this.date);
     const test = this.donateFoodForm.value;
-    // const dateFromForm = test.expiry_date.getFullYear() + '-' + (test.expiry_date.getMonth() + 1 ) + '-' + test.expiry_date.getDate();
     const dateFormat = test.expiry_date.split('T')[0];
     console.log('date after conversion', dateFormat);
     console.log('form data', test);
-    // This id will comes from the service, because when user will login, his ID will save to service
-    // and retrieved at time of send data to server.
     const donner = JSON.parse(localStorage.getItem('user'));
     const donnerID = donner.id;
     console.log('donner id ', donnerID);
@@ -79,21 +75,11 @@ export class DonateFoodPage implements OnInit {
           console.log('error', error);
         }
     );
-    // console.log('expiry date', test.expiry_date);
-    // if (test.expiry_date < this.date) {
-    //   alert('date is not valid');
-    // }
-    // if (test.expiry_date > this.date) {
-    //   alert('date is valid');
-    // }
-    // console.log(this.donateFoodForm.value);
   }
 
   saveFoodDonation(dataObj): Observable<any> {
-    // const url = 'http://test-node-api-test.herokuapp.com/students/newStudent'; // This link is working coorectly.
     console.log('data recieved for put. ', dataObj);
     const url = `${this.service.homeUrl}/foodDonationDetails/newFoodDonationDetails`;
     return this.http.post(url, dataObj);
-    alert('Notification sent. Please! wait while charity house connect with you. Thanks for donating fund.');
   }
 }
