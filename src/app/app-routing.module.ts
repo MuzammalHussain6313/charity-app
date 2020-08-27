@@ -237,7 +237,11 @@ const routes: Routes = [
               .then(m => m.UpdateCharityHousePageModule)
         }
       ]
-    }
+    },  {
+    path: 'upload-image',
+    loadChildren: () => import('./upload-image/upload-image.module').then( m => m.UploadImagePageModule)
+  }
+
 ];
 
 @NgModule({

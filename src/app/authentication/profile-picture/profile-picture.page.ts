@@ -85,15 +85,39 @@ export class ProfilePicturePage implements OnInit {
     const reader = new FileReader();
     reader.onloadend = () => {
       const formData = new FormData();
-      const imgBlob = new Blob([reader.result], {type: file.type});
-      formData.append('file', imgBlob, file.name);
+      // const imgBlob = new Blob([reader.result], {type: file.type});
+      formData.append('file', file);
+
+
+      this.saveHttpReq(formData).subscribe(d => {
+            console.log('I got this response -> ', d);
+          },
+          error => {
+            alert(':( OOPS ! Server Error. Confirm your internet connection.');
+            console.log('error', error);
+          }
+      );
+
+
+
+
       this.postData(formData);
     };
     reader.readAsArrayBuffer(file);
   }
 
+  saveHttpReq(dataObj): Observable<any> {
+    alert(`${this.service.homeUrl}/upload`);
+    console.log('recieved data ', dataObj);
+    const url = `${this.service.homeUrl}/upload`;
+    console.log('url', url);
+    const test = this.http.post(url, dataObj);
+    return test;
+  }
+
   private postData(formData: FormData) {
-    this.http.post<boolean>(`${this.service.homeUrl}/upload/uploadPicture`, formData)
+    alert(`${this.service.homeUrl}/upload`);
+    this.http.post(`${this.service.homeUrl}/upload`, formData)
         .pipe(catchError(e => this.handleError(e)), finalize(() => this.loading.dismiss()))
         .subscribe(ok => {
           alert(ok);

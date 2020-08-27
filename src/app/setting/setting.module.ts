@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 
 import { SettingPage } from './setting.page';
 
+
 const routes: Routes = [
   {
     path: '',

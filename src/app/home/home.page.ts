@@ -1,12 +1,8 @@
 import {Component} from '@angular/core';
 import {ListService} from '../list.service';
 import {Router} from '@angular/router';
-import {Platform} from '@ionic/angular';
-import { Push, PushObject, PushOptions } from '@ionic-native/push/ngx';
-
-// import { StatusBar} from '@ionic-native/status-bar';
-// import { SplashScreen} from '@ionic-native/splash-screen';
-
+import {AlertController, Platform} from '@ionic/angular';
+import {Push, PushObject, PushOptions} from '@ionic-native/push/ngx';
 import {StatusBar} from '@ionic-native/status-bar/ngx';
 import {SplashScreen} from '@ionic-native/splash-screen/ngx';
 
@@ -24,6 +20,17 @@ export class HomePage {
                 private service: ListService,
                 private router: Router) {
         platform.ready().then(() => {
+            // this.localNotifications.on('click').subscribe(res => {
+            //     console.log('click', res);
+            //     const msg = res.data ? res.data.mydata : '';
+            //     this.showAlert(res.title, res.text, msg);
+            // });
+            //
+            // this.localNotifications.on('trigger').subscribe(res => {
+            //     console.log('trigger', res);
+            //     const msg = res.data ? res.data.mydata : '';
+            //     this.showAlert(res.title, res.text, msg);
+            // });
             statusBar.styleDefault();
             splashScreen.hide();
             this.pushSetup();
@@ -31,8 +38,8 @@ export class HomePage {
     }
 
     data;
-
     clickSub: any;
+    private isAndroid: true;
 
     loadService() {
         this.data = this.service.getUser();
@@ -40,7 +47,7 @@ export class HomePage {
     }
 
     openPage() {
-        this.router.navigate(['profile-picture']);
+        this.router.navigate(['upload-image']);
     }
 
     private pushSetup() {
@@ -63,5 +70,36 @@ export class HomePage {
             .log('Device registered', registration));
 
         pushObject.on('error').subscribe(error => console.error('Error with Push plugin', error));
+    }
+
+    showNotification1() {
+        // this.localNotifications.schedule({
+        //     id: 1,
+        //     title: 'title',
+        //     text: 'Single ILocalNotification',
+        //     data: {mydata: 'notification ata'},
+        //     trigger: {at: new Date(new Date().getTime() + 3600)},
+        //     // foreground: true
+        // });
+    }
+
+    showNotification() {
+        // this.localNotification.requestPermission().then(
+        //     (permission) => {
+        //         if (permission === 'granted') {
+        //
+        //             // Create the notification
+        //             this.localNotification.create('My Title', {
+        //                 tag: 'message1',
+        //                 body: 'My body',
+        //                 icon: 'assets/icon/favicon.png'
+        //             });
+        //
+        //         }
+        //     }
+        // );
+    }
+
+    private showAlert(header: any, sub: any, msg: string) {
     }
 }

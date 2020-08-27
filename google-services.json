@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "929354685211",
+    "firebase_url": "https://food-distribution-app-fb350.firebaseio.com",
+    "project_id": "food-distribution-app-fb350",
+    "storage_bucket": "food-distribution-app-fb350.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:929354685211:android:943449844cd32344a1d1be",
+        "android_client_info": {
+          "package_name": "io.ionic.starter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "929354685211-g6thrfi1vsa3ooppavds12qtmfr4msjq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDGsMb0lKhSItgH80H5g_OKoriFEFbN_Wo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "929354685211-g6thrfi1vsa3ooppavds12qtmfr4msjq.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "929354685211-3c9nf2nq57h2ustljshtu3de6h1evl19.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "io.ionic.starter"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

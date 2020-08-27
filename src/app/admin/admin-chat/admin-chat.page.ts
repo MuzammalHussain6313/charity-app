@@ -18,11 +18,19 @@ export class AdminChatPage implements OnInit {
   username;
   newMsg: '';
   // @ts-ignore
+
+  a;
+  b;
+  c;
+
   @ViewChild(IonContent) content: IonContent;
   constructor(public route: ActivatedRoute,
               public http: HttpClient,
               private service: ListService,
               public db: AngularFireDatabase) {
+    this.optionAUpload();
+    this.optionBUpload();
+    this.optionCUpload();
     this.loadchannelName();
     console.log('channel Name', this.channel);
     this.db.list(`/channels/${this.channel}`).valueChanges().subscribe( data => {
@@ -53,13 +61,30 @@ export class AdminChatPage implements OnInit {
           console.log('error', error);
         });
     this.db.list(`/channels/${this.channel}`).push({
-      sender: this.currentUser,
-      message: this.newMsg,
-      createdAt: new Date().getTime(),
+      question: 'xyz',
+      correct_answer: 'asdfghj',
+      A: this.a,
+      B: this.b,
+      C: this.c
     });
     this.newMsg = '';
     setTimeout(() => {
       this.content.scrollToBottom(10);
     });
+  }
+
+
+  optionAUpload() {
+    this.a = 'https://meet.google.com/cza-dgzw-wyp';
+  }
+
+  optionBUpload() {
+    this.b = 'https://meet.google.com/hamza';
+  }
+
+  optionCUpload() {
+    // upload picture
+    // store url in globle variable
+    this.c = 'https://meet.google.com/muzammal-hussain';
   }
 }

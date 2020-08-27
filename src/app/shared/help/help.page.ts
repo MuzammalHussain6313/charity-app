@@ -1,19 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 
 @Component({
-  selector: 'app-help',
-  templateUrl: './help.page.html',
-  styleUrls: ['./help.page.scss'],
+    selector: 'app-help',
+    templateUrl: './help.page.html',
+    styleUrls: ['./help.page.scss'],
 })
 export class HelpPage implements OnInit {
+    user;
 
-  constructor(private router: Router) {
-  }
+    constructor(private router: Router) {
+    }
 
-  user;
-  ngOnInit() {
-  }
+    ngOnInit() {
+    }
 
     sendSmsToAdmin() {
         this.router.navigate(['/open-admin-chat']);
