@@ -75,7 +75,7 @@ export class DonateFundPage implements OnInit {
     this.saveFoodDonation(fundDonation).subscribe(
         data => {
           console.log('I got this response -> ', data);
-          this.router.navigate(['charityList']);
+          this.router.navigate(['charity-list']);
         },
         error => {
           console.log('error', error);

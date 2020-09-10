@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {HttpClient} from '@angular/common/http';
 import {ListService} from '../../list.service';
 import {FormBuilder, Validators} from '@angular/forms';
 import {Observable} from 'rxjs';
+import {LoadingController, ToastController} from '@ionic/angular';
 
 @Component({
   selector: 'app-edit-profile',
@@ -16,13 +17,28 @@ export class EditProfilePage implements OnInit {
               private http: HttpClient,
               private router: Router,
               private service: ListService,
-              private formBuilder: FormBuilder) { }
-
+              private formBuilder: FormBuilder,
+              private readonly loadingCtrl: LoadingController,
+              private readonly toastCtrl: ToastController,
+              private readonly changeDetectorRef: ChangeDetectorRef) { }
   user;
+  loading;
   childUser;
   donner;
   data: Observable<any>;
   ngOnInit() {
+    this.loadData();
+    this.formInitializer();
+    this.changeDetectorRef.detectChanges();
+    this.changeDetectorRef.markForCheck();
+  }
+
+  async loadData() {
+    this.loading = await this.loadingCtrl.create({
+      message: 'Uploading...'
+    });
+
+    this.loading.present();
     this.route.paramMap.subscribe(paramMap => {
       const val = paramMap.get('id');
       console.log('id', val);
@@ -32,13 +48,12 @@ export class EditProfilePage implements OnInit {
       console.log('data', this.data);
       this.data.subscribe(data => {
         this.user = data;
+        this.loading.dismiss();
         console.log('user', this.user);
       });
       console.log(this.user);
     });
-    this.formInitializer();
   }
-
   formInitializer() {
     console.log('formInitializer', this.user);
     this.updateForm = this.formBuilder.group({

@@ -3,6 +3,7 @@ import {AngularFireDatabase} from '@angular/fire/database';
 import {Router} from '@angular/router';
 import {HttpClient} from '@angular/common/http';
 import {ListService} from '../../list.service';
+import {LoadingController, ToastController} from '@ionic/angular';
 
 @Component({
   selector: 'app-chat-list',
@@ -14,15 +15,30 @@ export class ChatListPage implements OnInit {
   currentUser;
   recivedData;
   compareUser;
-  constructor(public db: AngularFireDatabase,
+  loading;
+  constructor(private readonly loadingCtrl: LoadingController,
+              private readonly toastCtrl: ToastController,
+              public db: AngularFireDatabase,
               public router: Router,
               public http: HttpClient,
               private service: ListService) {
+    this.loadMessages();
+  }
+  ngOnInit() {
+  }
+
+  async loadMessages() {
+    this.loading = await this.loadingCtrl.create({
+      message: 'Please wait...'
+    });
+
+    this.loading.present();
     this.http.get(`${this.service.homeUrl}/channels/conversation-user-list`,
         {observe: 'response'}).subscribe(response => {
       if (response.status === 200 || response.status === 201) {
         this.recivedData = response.body;
         this.users = this.recivedData;
+        this.loading.dismiss();
       }
       console.log('status code', response.status);
       console.log('channels', this.users);
@@ -31,8 +47,6 @@ export class ChatListPage implements OnInit {
     }, (error) => {
       console.log('error', error);
     });
-  }
-  ngOnInit() {
   }
 
   openChat(item: any) {

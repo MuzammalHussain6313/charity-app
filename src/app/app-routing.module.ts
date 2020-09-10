@@ -97,6 +97,10 @@ const routes: Routes = [
         loadChildren: './charityHouse/feedback/feedback.module#FeedbackPageModule'
     },
     {
+        path: 'donner-chat',
+        loadChildren: './donner/donner-chat/donner-chat.module#DonnerChatPageModule'
+    },
+    {
         path: 'donner-list',
         loadChildren: './charityHouse/donner-list/donner-list.module#DonnerListPageModule'
     },
@@ -237,7 +241,8 @@ const routes: Routes = [
               .then(m => m.UpdateCharityHousePageModule)
         }
       ]
-    },  {
+    },
+  {
     path: 'upload-image',
     loadChildren: () => import('./upload-image/upload-image.module').then( m => m.UploadImagePageModule)
   }

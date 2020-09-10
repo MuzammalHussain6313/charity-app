@@ -1,0 +1,42 @@
+<ion-header>
+  <ion-toolbar color="secondary">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Upload</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-item>
+    <ion-label>
+      <ion-row>
+        <ion-col size="6">
+          <ion-button color="danger" type="button" expand="full" shape="round" size="large" (click)="takePhoto()">
+            <ion-icon name="camera"></ion-icon>
+          </ion-button>
+        </ion-col>
+        <ion-col size="6">
+          <ion-button color="secondary" type="button" expand="full" shape="round" size="large" (click)="selectPhoto()">
+            <ion-icon name="image"></ion-icon>
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-label>
+  </ion-item>
+  <p>{{error}}</p>
+  <ion-item>
+    <ion-label>
+      <img *ngIf="myPhoto" [src]="myPhoto"/>
+    </ion-label>
+  </ion-item>
+  <div *ngFor="let label of labels">
+    <a (click)="addToField(label?.label)">{{label?.label}}</a>
+  </div>
+  <ion-list *ngFor="let label of labels">
+    <ion-item>
+      <ion-label>{{label?.tag?.en}}</ion-label>
+      <ion-label>{{label?.label}}</ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>

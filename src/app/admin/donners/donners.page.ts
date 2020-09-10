@@ -23,8 +23,6 @@ export class DonnersPage implements OnInit {
   t;
   result: any = [];
   data: Observable<any>;
-  listActive = true;
-  updateActive = false;
 
   ngOnInit(): void {
     const url = this.service.homeUrl + '/donners/list';
@@ -59,24 +57,12 @@ export class DonnersPage implements OnInit {
   }
 
   updateItem(id: any) {
-    // this.listActive = false;
-    // this.updateActive = true;
     const url = `update/${id}`;
     this.router.navigateByUrl(url);
   }
 
   deleteDonner(item: any) {
     console.log('id ' + item);
-    // this.callAPI(item).subscribe(
-    //     data => {
-    //       console.log('I got this response -> ', data);
-    //       // this.router.navigate(['donners']);
-    //     },
-    //     error => {
-    //       console.log('error', error);
-    //     }
-    // );
-    // alert('can\'t deleted. Please! contact with supper admin using hmuzammal015@gmail.com');
     this.presentAlertConfirm();
     this.router.navigate(['tabs/donners']);
   }

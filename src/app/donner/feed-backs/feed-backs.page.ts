@@ -22,6 +22,7 @@ export class FeedBacksPage implements OnInit {
     reviewsList: any = [];
     data: Observable<any>;
     user: any;
+    isEmpty = false;
     ngOnInit() {
         this.user = JSON.parse(localStorage.getItem('user'));
         const id = this.user.id;
@@ -31,6 +32,9 @@ export class FeedBacksPage implements OnInit {
                 this.reviewsList = response.body;
                 console.log('data loading from API');
                 this.result = this.reviewsList.content;
+                if (this.result.length === 0) {
+                    this.isEmpty = true;
+                }
                 localStorage.removeItem('reviewsList');
                 localStorage.setItem('reviewsList', JSON.stringify(this.result));
                 console.log('reviewsList : ', this.reviewsList.content);

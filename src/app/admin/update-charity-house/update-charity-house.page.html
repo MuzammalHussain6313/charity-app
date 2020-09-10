@@ -1,9 +1,42 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>updateCharityHouse</ion-title>
+  <ion-toolbar color="secondary">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Update Charity House</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <ion-grid class="ion-padding-top">
+    <div [formGroup]="charityForm">
+      <ion-item>
+        <ion-input placeholder="Name" value="{{user?.name}}" formControlName="name"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input placeholder="Email" value="{{user?.email}}" formControlName="email" ></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input placeholder="Dependents" value="{{user?.no_of_dependents}}" formControlName="no_of_dependents" ></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input placeholder="Contact" value="{{user?.contact}}" formControlName="contact" ></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input placeholder="type" value="{{user?.type}}" formControlName="type" ></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input placeholder="Bank Name" value="{{user?.bank_name}}" formControlName="bank_name" ></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input placeholder="Account No." value="{{user?.account_no}}" formControlName="account_no"></ion-input>
+      </ion-item>
+      <ion-grid class="ion-padding-top">
+        <ion-row class="ion-justify-content-center">
 
+          <ion-button (click)="updateData()" shape="round" [disabled]="!charityForm.valid">Update Data</ion-button>
+        </ion-row>
+      </ion-grid>
+    </div>
+  </ion-grid>
 </ion-content>

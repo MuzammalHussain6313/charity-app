@@ -1,0 +1,22 @@
+export class CharityHouse {
+
+}
+
+export class User {
+    firstname: string;
+    lastname: string;
+    email: string;
+    // username: ,
+    // "password": "12345",
+    // "applicationStatus": "approved",
+    // "role": "charity house",
+    // "image": null
+}
+
+export class Address {
+    streetAddress: string;
+    city: string;
+    zipCode: number;
+    state: string;
+    country: string;
+}

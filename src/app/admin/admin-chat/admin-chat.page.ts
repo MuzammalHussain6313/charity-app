@@ -4,6 +4,7 @@ import {ActivatedRoute} from '@angular/router';
 import {HttpClient} from '@angular/common/http';
 import {ListService} from '../../list.service';
 import {AngularFireDatabase} from '@angular/fire/database';
+import {LoadingController, ToastController} from '@ionic/angular';
 
 @Component({
   selector: 'app-admin-chat',
@@ -17,28 +18,30 @@ export class AdminChatPage implements OnInit {
   channel;
   username;
   newMsg: '';
-  // @ts-ignore
-
-  a;
-  b;
-  c;
-
+  loading;
   @ViewChild(IonContent) content: IonContent;
-  constructor(public route: ActivatedRoute,
+  constructor(private readonly loadingCtrl: LoadingController,
+              private readonly toastCtrl: ToastController,
+              public route: ActivatedRoute,
               public http: HttpClient,
               private service: ListService,
               public db: AngularFireDatabase) {
-    this.optionAUpload();
-    this.optionBUpload();
-    this.optionCUpload();
     this.loadchannelName();
     console.log('channel Name', this.channel);
+    this.loadMessages();
+  }
+
+  async loadMessages(){
+    this.loading = await this.loadingCtrl.create({
+      message: 'Please wait...'
+    });
+
+    this.loading.present();
     this.db.list(`/channels/${this.channel}`).valueChanges().subscribe( data => {
       console.log('data', data);
       this.recivedData = data;
       this.messages = data;
-      // this.messages = this.recivedData.filter(x => x.channelName === this.channel);
-      console.log('messages after filter', this.messages);
+      this.loading.dismiss();
     });
   }
   ngOnInit() {
@@ -51,7 +54,12 @@ export class AdminChatPage implements OnInit {
     this.currentUser = this.user.user_name.toLowerCase(); // + ' ' + this.user.last_name.toLowerCase();
     console.log('current user', this.currentUser);
   }
-  sendMessage() {
+  async sendMessage() {
+    this.loading = await this.loadingCtrl.create({
+      message: 'Please wait...'
+    });
+
+    this.loading.present();
     const url = `${this.service.homeUrl}/channels/exist-or-not/${this.channel}`;
     this.http.post(url, 1).subscribe(
         data => {
@@ -61,30 +69,14 @@ export class AdminChatPage implements OnInit {
           console.log('error', error);
         });
     this.db.list(`/channels/${this.channel}`).push({
-      question: 'xyz',
-      correct_answer: 'asdfghj',
-      A: this.a,
-      B: this.b,
-      C: this.c
+      sender: this.currentUser,
+      message: this.newMsg,
+      createdAt: new Date().getTime()
     });
+    this.loading.dismiss();
     this.newMsg = '';
     setTimeout(() => {
       this.content.scrollToBottom(10);
     });
-  }
-
-
-  optionAUpload() {
-    this.a = 'https://meet.google.com/cza-dgzw-wyp';
-  }
-
-  optionBUpload() {
-    this.b = 'https://meet.google.com/hamza';
-  }
-
-  optionCUpload() {
-    // upload picture
-    // store url in globle variable
-    this.c = 'https://meet.google.com/muzammal-hussain';
   }
 }

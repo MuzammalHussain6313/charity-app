@@ -3,7 +3,9 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
+import {LoadingController, ToastController} from '@ionic/angular';
 import {ListService} from '../../list.service';
+
 @Component({
     selector: 'app-login',
     templateUrl: './login.page.html',
@@ -14,9 +16,12 @@ export class LoginPage implements OnInit {
                 private http: HttpClient,
                 private formBuilder: FormBuilder,
                 private service: ListService,
-                private router: Router) {
+                private router: Router,
+                private readonly loadingCtrl: LoadingController,
+                private readonly toastCtrl: ToastController) {
     }
 
+    loading;
     test = false;
     loginForm: FormGroup;
     data: Observable<any>;
@@ -41,14 +46,19 @@ export class LoginPage implements OnInit {
         });
     }
 
-    login() {
+    async login() {
         this.isSubmitted = true;
         if (this.loginForm.valid) {
             const loginData = this.loginForm.value;
+            this.loading = await this.loadingCtrl.create({
+                message: 'Loading, Please Wait...'
+            });
+            this.loading.present();
             this.saveHttpReq(loginData).subscribe(d => {
                     console.log('I got this response -> ', d);
                     console.log('data.emailStatus', d.emailStatus);
                     console.log('response', d);
+                    this.loading.dismiss();
                     if (d.emailStatus && d.loginStatus && d.applicationStatus === 'approved' && d.role != null) {
                         if (d.role === 'donner') {
                             this.appPages = [{ title: 'Home', url: '/home', icon: 'home' },
@@ -136,7 +146,7 @@ export class LoginPage implements OnInit {
     }
 
     saveHttpReq(dataObj): Observable<any> {
-        console.log('recieved data ', dataObj);
+        console.log('received data ', dataObj);
         const url = `${this.service.homeUrl}/users/login`;
         console.log('url', url);
         const test = this.http.post(url, dataObj);

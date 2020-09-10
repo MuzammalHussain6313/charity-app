@@ -4,6 +4,9 @@
       <ion-back-button></ion-back-button>
     </ion-buttons>
     <ion-title>{{user?.name}}</ion-title>
+    <ion-buttons slot="end">
+      <ion-img (click)="contactCharity(user?.contact)" style="padding-right: 7%; width: 40px; height: 40px;" src="/assets/phone-icon.svg" alt="update" slot="end"></ion-img>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -20,7 +23,7 @@
       <p>there are {{user?.no_of_members}} members in house.</p>
       <p>{{user?.name}} have an account in {{user?.bank_name}} Bank where you can donate your funds
         in {{user?.account_no}} account Number.</p>
-      <ion-icon size="large" slot="end" name="ios-call" (click)="contactDealer(user?.email)"></ion-icon>
+      <ion-icon size="large" slot="end" name="mail" (click)="contactDealer(user?.email)"></ion-icon>
     </ion-card-content>
   </ion-card>
 </ion-content>

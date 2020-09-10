@@ -37,6 +37,10 @@ export class ShowSingleCharityHousePage implements OnInit {
   }
 
   contactDealer(contactNumber: any) {
-    alert('You can contactwith owner via ' + contactNumber + ' Number.');
+    alert('You can contact with owner via ' + contactNumber + ' Number.');
+  }
+
+  contactCharity(contact: any) {
+    alert('You can Contact with charity house using that ' + contact + ' contact number.');
   }
 }

@@ -5,6 +5,9 @@ import {AlertController, Platform} from '@ionic/angular';
 import {Push, PushObject, PushOptions} from '@ionic-native/push/ngx';
 import {StatusBar} from '@ionic-native/status-bar/ngx';
 import {SplashScreen} from '@ionic-native/splash-screen/ngx';
+import {Observable} from 'rxjs';
+import {catchError, finalize} from 'rxjs/operators';
+import {HttpClient} from '@angular/common/http';
 
 @Component({
     selector: 'app-home',
@@ -14,6 +17,7 @@ import {SplashScreen} from '@ionic-native/splash-screen/ngx';
 export class HomePage {
 
     constructor(private push: Push,
+                private http: HttpClient,
                 private platform: Platform,
                 private splashScreen: SplashScreen,
                 private statusBar: StatusBar,
@@ -40,6 +44,16 @@ export class HomePage {
     data;
     clickSub: any;
     private isAndroid: true;
+    jsonData
+    labels;
+    test;
+    loadLabels() {
+        this.jsonData = JSON.parse(localStorage.getItem('labels'));
+        alert(this.jsonData);
+        if (this.jsonData) {
+            this.labels = this.jsonData?.tags;
+        }
+    }
 
     loadService() {
         this.data = this.service.getUser();
@@ -101,5 +115,25 @@ export class HomePage {
     }
 
     private showAlert(header: any, sub: any, msg: string) {
+    }
+
+    testRequest() {
+        this.saveHttpReq('data').subscribe(data => {
+            this.labels = data;
+            console.log(this.labels);
+            // console.log('data.result', data.result);
+            // console.log('data.result', data.result.tags);
+            // this.labels = data.result.tags;
+        });
+    }
+
+    saveHttpReq(dataObj): Observable<any>{
+        console.log('received data ', dataObj);
+        const url = `${this.service.homeUrl}/testUpload`;
+        console.log('url', url);
+        const formData = new FormData();
+        formData.append('file', 'Data sending');
+        const test = this.http.post(url, formData);
+        return test;
     }
 }

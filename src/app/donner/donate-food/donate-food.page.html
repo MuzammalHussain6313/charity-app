@@ -1,50 +1,120 @@
 <ion-header>
-  <ion-toolbar color="primary">
-    <ion-buttons slot="start">
-      <ion-back-button></ion-back-button>
-    </ion-buttons>
-    <ion-title>Donate Food</ion-title>
-  </ion-toolbar>
+    <ion-toolbar color="primary">
+        <ion-buttons slot="start">
+            <ion-back-button></ion-back-button>
+        </ion-buttons>
+        <ion-title>Donate Food</ion-title>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <form [formGroup]="donateFoodForm">
-    <ion-grid>
-      <ion-row color="justify-content-center">
-        <ion-col class="ion-align-self-center" size-md="6" size-lg="5" size-xs="12">
-          <div class="ion-text-center">
-            <h3>Provide Food Information</h3>
-          </div>
-          <div class="ion-padding">
-            <ion-item>
-              <ion-input placeholder="Enter Name" formControlName="name"></ion-input>
-            </ion-item>
-            <ion-item>
-              <ion-datetime placeholder="Expiry Date" pickerFormat="YYYY MM DD" formControlName="expiry_date"></ion-datetime>
-            </ion-item>
-            <ion-item>
-              <ion-label position="floating">Select Type</ion-label>
-              <ion-select formControlName="type" placeholder="--Select--" okText="Okay" cancelText="Dismiss">
-                <ion-select-option value="fast Food">Fast Food</ion-select-option>
-                <ion-select-option value="rise">Rise</ion-select-option>
-                <ion-select-option value="simple food">Simple Food</ion-select-option>
-              </ion-select>
-            </ion-item>
-            <ion-item>
-              <ion-input placeholder="Quantity" formControlName="quantity"></ion-input>
-            </ion-item>
-            <ion-item>
-              <ion-label position="floating">Unit</ion-label>
-              <ion-select formControlName="unit" placeholder="--Select--" okText="Okay" cancelText="Dismiss">
-                <ion-select-option *ngFor="let item of units" value="{{item}}">{{item}}</ion-select-option>
-              </ion-select>
-            </ion-item>
-          </div>
-          <div class="ion-padding">
-            <ion-button size="default" [disabled]="donateFoodForm.invalid" (click)="donateFood()" color="primary" type="submit" expand="block">Donate Food</ion-button>
-          </div>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-  </form>
+    <ion-item>
+        <ion-label>
+            <ion-row>
+                <ion-col size="6">
+                    <ion-button color="danger" type="button" expand="full" shape="round" size="large"
+                                (click)="takePhoto()">
+                        <ion-icon name="camera"></ion-icon>
+                    </ion-button>
+                </ion-col>
+                <ion-col size="6">
+                    <ion-button color="secondary" type="button" expand="full" shape="round" size="large"
+                                (click)="selectPhoto()">
+                        <ion-icon name="image"></ion-icon>
+                    </ion-button>
+                </ion-col>
+            </ion-row>
+        </ion-label>
+    </ion-item>
+    <ion-item lines="none">
+        <ion-label>
+            <img *ngIf="myPhoto" [src]="myPhoto"/>
+        </ion-label>
+    </ion-item>
+    <form [formGroup]="donateFoodForm">
+        <ion-grid>
+            <ion-row color="justify-content-center">
+                <ion-col class="ion-align-self-center" size-md="6" size-lg="5" size-xs="12">
+                    <div class="ion-text-center">
+                        <!--            <h3>Provide Food Information</h3>-->
+                    </div>
+                    <div class="ion-padding">
+                        <ion-item>
+                            <ion-input value="{{foodName}}" placeholder="Enter Name" formControlName="name"></ion-input>
+                        </ion-item>
+                        <ion-grid>
+                            <ion-row>
+                                <p class="a" *ngFor="let label of labels"
+                                   (click)="addToField(label?.label)">{{label?.label}}</p>
+                            </ion-row>
+                        </ion-grid>
+                        <ion-item>
+                            <ion-datetime value="{{currentDate}}" placeholder="Expiry Date" max="2026-12-31"
+                                          pickerFormat="YYYY MM DD" formControlName="expiry_date"></ion-datetime>
+                        </ion-item>
+                        <ion-item *ngIf="clicked === true">
+                            <ion-label position="floating">Select Type</ion-label>
+                            <ion-select value="{{type}}" formControlName="type" placeholder="{{type}}" okText="Okay"
+                                        cancelText="Dismiss">
+                                <ion-select-option value="fast Food">Fast Food</ion-select-option>
+                                <ion-select-option value="rise">Rise</ion-select-option>
+                                <ion-select-option value="simple food">Simple Food</ion-select-option>
+                                <ion-select-option value="fruit">Fruit</ion-select-option>
+                            </ion-select>
+                        </ion-item>
+                        <ion-item *ngIf="clicked === false">
+                            <ion-label position="floating">Select Type</ion-label>
+                            <ion-select value="{{type}}" formControlName="type" placeholder="--Select--" okText="Okay"
+                                        cancelText="Dismiss">
+                                <ion-select-option value="fast Food">Fast Food</ion-select-option>
+                                <ion-select-option value="rise">Rise</ion-select-option>
+                                <ion-select-option value="simple food">Simple Food</ion-select-option>
+                                <ion-select-option value="fruit">Fruit</ion-select-option>
+                            </ion-select>
+                        </ion-item>
+                        <ion-item>
+                            <ion-input value="{{quantity}}" placeholder="Quantity"
+                                       formControlName="quantity"></ion-input>
+                        </ion-item>
+                        <ion-item *ngIf="clicked === true">
+                            <ion-label position="floating">Unit</ion-label>
+                            <ion-select value="{{unit}}" formControlName="unit" placeholder="{{unit}}" okText="Okay"
+                                        cancelText="Dismiss">
+                                <ion-select-option *ngFor="let item of units"
+                                                   value="{{item}}">{{item}}</ion-select-option>
+                            </ion-select>
+                        </ion-item>
+                        <ion-item *ngIf="clicked === false">
+                            <ion-label position="floating">Unit</ion-label>
+                            <ion-select value="{{unit}}" formControlName="unit" placeholder="--Select--" okText="Okay"
+                                        cancelText="Dismiss">
+                                <ion-select-option *ngFor="let item of units"
+                                                   value="{{item}}">{{item}}</ion-select-option>
+                            </ion-select>
+                        </ion-item>
+                    </div>
+                    <div class="ion-padding">
+                        <ion-button size="default" [disabled]="donateFoodForm.invalid" (click)="donateFood()"
+                                    color="primary" type="submit" expand="block">Donate Food
+                        </ion-button>
+                    </div>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+    </form>
+    <p>{{error}}</p>
+    <ion-item>
+        <ion-label>
+            <img *ngIf="myPhoto" [src]="myPhoto"/>
+        </ion-label>
+    </ion-item>
+    <div *ngFor="let label of labels">
+        <a (click)="addToField(label?.label)">{{label?.label}}</a>
+    </div>
+    <ion-list *ngFor="let label of labels">
+        <ion-item>
+            <ion-label>{{label?.tag?.en}}</ion-label>
+            <ion-label>{{label?.label}}</ion-label>
+        </ion-item>
+    </ion-list>
 </ion-content>

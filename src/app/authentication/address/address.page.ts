@@ -4,6 +4,7 @@ import {HttpClient} from '@angular/common/http';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Observable} from 'rxjs';
 import {ListService} from '../../list.service';
+import {LoadingController, ToastController} from '@ionic/angular';
 
 @Component({
     selector: 'app-address',
@@ -14,13 +15,15 @@ export class AddressPage implements OnInit {
 
     addressForm: FormGroup;
     charity;
-    loading: boolean;
+    loading;
     submitted: any;
     constructor(private route: ActivatedRoute,
                 private router: Router,
                 private http: HttpClient,
                 private service: ListService,
-                private formBuilder: FormBuilder
+                private formBuilder: FormBuilder,
+                private readonly loadingCtrl: LoadingController,
+                private readonly toastCtrl: ToastController
     ) {
     }
 
@@ -49,10 +52,15 @@ export class AddressPage implements OnInit {
         return this.addressForm.controls;
     }
 
-    registerUser() {
+    async registerUser() {
         this.submitted = true;
         this.loading = true;
         if (this.addressForm.valid) {
+            this.loading = await this.loadingCtrl.create({
+                message: 'Please Wait...'
+            });
+
+            this.loading.present();
             console.log('formData', this.addressForm.value);
             const formData = this.addressForm.value;
             this.charity = '' + this.obj + '"address" : {"streetAddress" : "' + formData.streetAddress +

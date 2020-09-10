@@ -12,8 +12,8 @@ export class ListService {
     constructor() {
     }
     role: any;
-    // homeUrl = 'http://localhost:8095';
-    homeUrl = 'https://food-distribution-app.herokuapp.com';
+    homeUrl = 'http://localhost:8095';
+    // homeUrl = 'https://food-distribution-app.herokuapp.com';
     addUser(item: number) {
         this.user = item;
     }

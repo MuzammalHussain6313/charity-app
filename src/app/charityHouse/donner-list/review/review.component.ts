@@ -5,6 +5,7 @@ import {HttpClient} from '@angular/common/http';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Observable} from 'rxjs';
 import {ListService} from '../../../list.service';
+import {LoadingController, ToastController} from '@ionic/angular';
 
 @Component({
   selector: 'app-review',
@@ -18,14 +19,16 @@ export class ReviewComponent implements OnInit {
               private router: Router,
               private http: HttpClient,
               private service: ListService,
-              private formBuilder: FormBuilder) {
+              private formBuilder: FormBuilder,
+              private readonly loadingCtrl: LoadingController,
+              private readonly toastCtrl: ToastController) {
   }
   id; c1 = '';  c2 = '';  c3 = '';  c4 = '';  c5 = '';
   n1 = 'star-outline'; n2 = 'star-outline'; n3 = 'star-outline';
   n4 = 'star-outline'; n5 = 'star-outline';
   star: number; finalReviewObject; donnerID;
   reviewForm: FormGroup;
-
+  loading;
   ngOnInit() {
     this.id = this.navParams.data.id;
     console.log('id ' + this.id);
@@ -94,7 +97,11 @@ export class ReviewComponent implements OnInit {
     this.n1 = 'star'; this.n2 = 'star'; this.n3 = 'star'; this.n4 = 'star'; this.n5 = 'star';
   }
 
-  addReview() {
+  async addReview() {
+    this.loading = await this.loadingCtrl.create({
+      message: 'Loading. please wait...'
+    });
+    this.loading.present();
     const test = this.reviewForm.value;
     const charityHouse = JSON.parse(localStorage.getItem('user'));
     const charityID = charityHouse.id;
@@ -109,6 +116,7 @@ export class ReviewComponent implements OnInit {
     const review = JSON.parse(this.finalReviewObject);
     this.saveReview(review).subscribe(
         data => {
+          this.loading.dismiss();
           console.log('I got this response -> ', data);
           this.router.navigate(['donner-list']);
         },

@@ -4,7 +4,7 @@ import {HttpClient} from '@angular/common/http';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Observable} from 'rxjs';
 import {ListService} from '../../list.service';
-
+import {LoadingController, ToastController} from '@ionic/angular';
 @Component({
     selector: 'app-update',
     templateUrl: './update.page.html',
@@ -14,7 +14,9 @@ export class UpdatePage implements OnInit {
 
     public signupForm;
 
-    constructor(private route: ActivatedRoute,
+    constructor(private readonly loadingCtrl: LoadingController,
+                private readonly toastCtrl: ToastController,
+                private route: ActivatedRoute,
                 private http: HttpClient,
                 private router: Router,
                 private service: ListService,
@@ -24,9 +26,20 @@ export class UpdatePage implements OnInit {
     user;
     childUser;
     donner;
+    loading;
     data: Observable<any>;
 
     ngOnInit() {
+        this.loadDonner();
+        this.formInitializer();
+    }
+
+    async loadDonner() {
+        this.loading = await this.loadingCtrl.create({
+            message: 'Please wait...'
+        });
+
+        this.loading.present();
         this.route.paramMap.subscribe(paramMap => {
             const val = paramMap.get('id');
             console.log('id', val);
@@ -36,13 +49,12 @@ export class UpdatePage implements OnInit {
             console.log('data', this.data);
             this.data.subscribe(data => {
                 this.user = data;
+                this.loading.dismiss();
                 console.log('user', this.user);
             });
             console.log(this.user);
         });
-        this.formInitializer();
     }
-
     formInitializer() {
         console.log('formInitializer', this.user);
         this.signupForm = this.formBuilder.group({

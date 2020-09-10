@@ -4,6 +4,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {HttpClient} from '@angular/common/http';
 import {ListService} from '../../list.service';
 import {Observable} from 'rxjs';
+import {LoadingController, ToastController} from '@ionic/angular';
 
 @Component({
   selector: 'app-forgot-password',
@@ -15,13 +16,15 @@ export class ForgotPasswordPage implements OnInit {
   passwordType = 'password';
   passwordIcon = 'eye-off';
   mailloading: boolean;
+  loading;
   emailVerification: boolean;
   constructor(private route: ActivatedRoute,
               private http: HttpClient,
               private formBuilder: FormBuilder,
               private service: ListService,
-              private router: Router) { }
-
+              private router: Router,
+              private readonly loadingCtrl: LoadingController,
+              private readonly toastCtrl: ToastController) { }
   ngOnInit() {
     this.formInitializer();
   }
@@ -37,11 +40,17 @@ export class ForgotPasswordPage implements OnInit {
     this.passwordIcon = this.passwordIcon === 'eye-off' ? 'eye' : 'eye-off';
   }
 
-  resetPassword() {
+  async resetPassword() {
     if (this.forgotPasswordForm.valid) {
+      this.loading = await this.loadingCtrl.create({
+        message: 'Please Wait...'
+      });
+
+      this.loading.present();
       const passwordData = this.forgotPasswordForm.value;
       this.sendRequest(passwordData).subscribe(d => {
             console.log('I got this response -> ', d);
+            this.loading.dismiss();
             alert('password is successfully updated.');
             this.router.navigate(['']);
           },
@@ -76,13 +85,8 @@ export class ForgotPasswordPage implements OnInit {
           console.log('tester', tester.toString());
           if ( tester.toString() === 'true') {
             alert('Email does not exist. Try with another email!');
-            // this.emailVerification = true;
-            // this.mailloading = false;
           }
           this.mailloading = false;
-          // this.donnerList = response.body;
-          // console.log('content', this.donnerList);
-          // this.results = this.donnerList.content;
         }
       }, (error) => {
         console.log('error.', error);

@@ -4,6 +4,7 @@ import {ActivatedRoute} from '@angular/router';
 import {IonContent} from '@ionic/angular';
 import {HttpClient} from '@angular/common/http';
 import {ListService} from '../../list.service';
+import {LoadingController, ToastController} from '@ionic/angular';
 
 @Component({
     selector: 'app-charity-house-chat',
@@ -23,51 +24,31 @@ export class CharityHouseChatPage implements OnInit {
     // donnerName;
     // @ts-ignore
     @ViewChild(IonContent) content: IonContent;
-
+    loading;
     constructor(public route: ActivatedRoute,
                 public http: HttpClient,
                 private service: ListService,
-                public db: AngularFireDatabase) {
+                public db: AngularFireDatabase,
+                private readonly loadingCtrl: LoadingController,
+                private readonly toastCtrl: ToastController) {
         this.loadchannelName();
         console.log('channel Name', this.channel);
+        this.loadMessage();
+    }
+
+    async loadMessage(){
+        this.loading = await this.loadingCtrl.create({
+            message: 'Loading...'
+        });
+        this.loading.present();
         this.db.list(`/channels/${this.channel}`).valueChanges().subscribe(data => {
             console.log('data', data);
             this.recivedData = data;
             this.messages = data;
-            // this.messages;
-            // this.messages = this.recivedData.filter(x => x.channelName === this.channel);
-            console.log('messages after filter', this.messages);
+            this.loading.dismiss();
         });
     }
-
     ngOnInit() {
-        // this.http.get(`${this.service.homeUrl}/channels/getByName/${this.channel}`,
-        //     {observe: 'response'}).subscribe(response => {
-        //   if (response.status === 200 || response.status === 201) {
-        //     this.objectOfChannel = response.body;
-        //   }
-        //   console.log('channelName', this.channelName);
-        //   console.log('status code', response.status);
-        //   console.log('complete content', this.objectOfChannel);
-        //   console.log('X-Custom-Header', response.headers.get('X-Custom-Header'));
-        // }, (error) => {
-        //   console.log('error', error);
-        // });
-        // if (this.objectOfChannel == null) {
-        //   const channelObject = '{"name": "' + this.channel + '" }';
-        //   const readyToSend = JSON.parse(channelObject);
-        //   console.log('channel to send', readyToSend);
-        //   const url = `${this.service.homeUrl}/channels/add`;
-        //   console.log('url', url);
-        //   this.http.post(url, readyToSend).subscribe(
-        //       data => {
-        //         console.log('I got this response -> ', data);
-        //       },
-        //       error => {
-        //         console.log('error', error);
-        //       }
-        //   );
-        // }
     }
 
     loadchannelName() {
@@ -80,7 +61,11 @@ export class CharityHouseChatPage implements OnInit {
         console.log('channel', this.channel);
     }
 
-    sendMessage() {
+    async sendMessage() {
+        this.loading = await this.loadingCtrl.create({
+            message: 'Sending...'
+        });
+        this.loading.present();
         const url = `${this.service.homeUrl}/channels/exist-or-not/${this.channel}`;
         this.http.post(url, 1).subscribe(
             data => {
@@ -94,6 +79,7 @@ export class CharityHouseChatPage implements OnInit {
             message: this.newMsg,
             createdAt: new Date().getTime()
         });
+        this.loading.dismiss();
         this.newMsg = '';
         setTimeout(() => {
             this.content.scrollToBottom(10);

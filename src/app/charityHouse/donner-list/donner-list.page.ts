@@ -6,6 +6,7 @@ import {PopoverController} from '@ionic/angular';
 import {ReviewComponent} from './review/review.component';
 import {Storage} from '@ionic/storage';
 import {ListService} from '../../list.service';
+import {LoadingController, ToastController} from '@ionic/angular';
 
 @Component({
     selector: 'app-donner-list',
@@ -19,28 +20,37 @@ export class DonnerListPage implements OnInit {
                 public popoverController: PopoverController,
                 private storage: Storage,
                 private service: ListService,
-                public http: HttpClient) {
+                public http: HttpClient,
+                private readonly loadingCtrl: LoadingController,
+                private readonly toastCtrl: ToastController) {
     }
 
     result: any = [];
     data: Observable<any>;
     itration = [1, 2, 3, 4];
-
+    loading;
     ngOnInit() {
+        this.loadDonnerList();
+    }
+
+    async loadDonnerList() {
+        this.loading = await this.loadingCtrl.create({
+            message: 'Loading data...'
+        });
+        this.loading.present();
         this.http.get(`${this.service.homeUrl}/donners/list`,
             {observe: 'response'}).subscribe(response => {
             if (response.status === 200 || response.status === 201) {
                 this.donnerList = response.body;
                 console.log('data loading from API');
                 this.result = this.donnerList.content;
+                this.loading.dismiss();
                 localStorage.removeItem('donners');
                 localStorage.setItem('donners', JSON.stringify(this.result));
                 console.log('donnerList : ', this.donnerList.content);
             }
-            // You can access status:
             console.log('status code', response.status);
             console.log('complete content', response.body);
-            // Or any other header:
             console.log('X-Custom-Header', response.headers.get('X-Custom-Header'));
         }, (error) => {
             console.log('data loading from loadData function.');
@@ -48,21 +58,9 @@ export class DonnerListPage implements OnInit {
             console.log('error', error);
         });
         console.log('result' + this.result);
-        // this.data = this.http.get('http://localhost:8095/donners/list');
-        // // this.loading = false;
-        // console.log('data', this.data);
-        // this.data.subscribe(data => {
-        //   this.result = data.content;
-        // });
-        // console.log('result' + this.result);
     }
-
     loadData() {
         this.result = JSON.parse(localStorage.getItem('donners'));
-        // this.storage.get('donners').then((val) => {
-        //     this.result = val;
-        //     console.log('Your data is', val);
-        // });
     }
 
     async review(myEvent, item: any) {
@@ -74,12 +72,7 @@ export class DonnerListPage implements OnInit {
     }
 
     feedBack(item: any) {
-        // const url = `feedback/${item.id}`;
         this.router.navigate(['feedback', item]);
-    }
-
-    active($event: MouseEvent) {
-
     }
 
     openChat(first: string, last: string) {

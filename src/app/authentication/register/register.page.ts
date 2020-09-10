@@ -105,12 +105,6 @@ export class RegisterPage implements OnInit {
                 const userData = this.registerForm.value;
                 this.loading = false;
                 this.router.navigate(['register-charity-house', userData]);
-                // alert(formData.role);
-                // this.obj1 = '1';
-                // this.obj2 = '2';
-                // const fullID = '{ "obj2" : "' + this.obj2 + '", "obj1" : "' + this.obj1 + '" } ';
-                // const t = JSON.parse(fullID);
-                // console.log('full Object', t);
             }
         }
     }
@@ -139,9 +133,6 @@ export class RegisterPage implements OnInit {
                         this.mailloading = false;
                     }
                     this.mailloading = false;
-                    // this.donnerList = response.body;
-                    // console.log('content', this.donnerList);
-                    // this.results = this.donnerList.content;
                 }
             }, (error) => {
                 console.log('error.', error);
