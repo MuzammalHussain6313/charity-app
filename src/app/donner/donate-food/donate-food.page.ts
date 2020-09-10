@@ -41,7 +41,7 @@ export class DonateFoodPage implements OnInit {
                 private readonly loadingCtrl: LoadingController,
                 private readonly toastCtrl: ToastController,
                 private readonly changeDetectorRef: ChangeDetectorRef) {
-        this.sendNotification();
+        // this.sendNotification();
     }
 
     ngOnInit() {
@@ -94,6 +94,7 @@ export class DonateFoodPage implements OnInit {
         this.saveFoodDonation(foodDonation).subscribe(
             data => {
                 console.log('I got this response -> ', data);
+                this.loading.dismiss();
                 this.router.navigate(['charity-list']);
             },
             error => {
