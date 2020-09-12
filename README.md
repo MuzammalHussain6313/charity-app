@@ -52,23 +52,23 @@ Features in our Application.
 <h4>Have a look Some Screen shorts.</h4>
 
 <p>Login.</p><br>
-<img src="screen-shorts/login.PNG" width="400" height="700"><br/>
+<img src="screen-shots/login.PNG" width="400" height="700"><br/>
 
 <p>register.</p><br>
-<img src="screen-shorts/register.PNG" width="400" height="700"><br/>
+<img src="screen-shots/register.PNG" width="400" height="700"><br/>
 
 
 <p>Donner List.</p><br>
-<img src="screen-shorts/donnerList.PNG" width="400" height="700"><br/>
+<img src="screen-shots/donnerList.PNG" width="400" height="700"><br/>
 
 
 <p>Charity Houses.</p><br>
-<img src="screen-shorts/charityHouse.PNG" width="400" height="700"><br/>
+<img src="screen-shots/charityHouse.PNG" width="400" height="700"><br/>
 
 
 <p>Admin Manage User.</p><br>
-<img src="screen-shorts/adminUsers.PNG" width="400" height="700"><br/>
+<img src="screen-shots/adminUsers.PNG" width="400" height="700"><br/>
 
 
 <p>Menu.</p><br>
-<img src="screen-shorts/adminMenu.PNG" width="400" height="700"><br/>
+<img src="screen-shots/adminMenu.PNG" width="400" height="700"><br/>
