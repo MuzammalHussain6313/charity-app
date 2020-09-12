@@ -6,7 +6,7 @@ Tools and technologies <br/>
 •	mySQL database and Spring Boot will be used for backed work. 
 •	remoteMySQL used while project is deployed to heroku server. 
 
-<h3>Click The link to view<a href = "https://www.youtube.com/watch?v=19hE7oiMuSU">Demo Video</a></h3>
+<h3>Click The link to view <a href = "https://www.youtube.com/watch?v=19hE7oiMuSU">Demo Video</a></h3>
 
 Features in our Application.
 1.	User House <br/>
